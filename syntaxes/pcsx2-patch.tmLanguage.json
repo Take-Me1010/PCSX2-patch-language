@@ -1,0 +1,85 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "pcsx2",
+	"patterns": [
+		{
+			"include": "#game_statement"
+		},
+		{
+			"include": "#header_context"
+		},
+
+		{
+			"include": "#patch_context"
+		},
+		{
+			"include": "#comment"
+		}
+	],
+	"repository": {
+		"game_statement": {
+			"match": "^(gametitle)(=)(.*?)$",
+			"captures": {
+				"1": {
+					"name": "keyword.other.definition"
+				},
+				"2": {
+					"name": "punctuation.separator.key-value"
+				},
+				"3": {
+					"name": "constant"
+				}
+			}
+		},
+		"comment": {
+			"patterns": [
+				{
+					"name": "comment.line.double-slash.pcsx2-patch",
+					"match": "\\/\\/.*$"
+				}
+			]
+		},
+		"patch_context": {
+			"match": "^(author|comment|description|patch|gsaspectratio|gsinterlacemode)(=)(.*?)$",
+			"captures": {
+				"1": {
+					"name": "support.type.property-name"
+				},
+				"2": {
+					"name": "punctuation.separator.key-value"
+				},
+				"3": {
+					"name": "string.unquoted"
+				}
+			}
+		},
+		"header_context": {
+			"match": "^(\\[)([^\\]]+)(\\])$",
+			"captures": {
+				"1": {
+					"name": "punctuation.section.scope.begin"
+				},
+				"2": {
+					"patterns": [
+						{
+							"match": "(No-Interlacing|Widescreen 16:9)",
+							"name": "support.function.magic"
+						},
+						{
+							"match": "([^\\\\]+)",
+							"name": "entity.name.function"
+						},
+						{
+							"match": "(\\\\)",
+							"name": "punctuation.separator.key-value"
+						}
+					]
+				},
+				"3": {
+					"name": "punctuation.section.scope.end"
+				}
+			}
+		}
+	},
+	"scopeName": "source.pcsx2"
+}

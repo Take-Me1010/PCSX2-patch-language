@@ -1,0 +1,25 @@
+{
+    "name": "pcsx2-patch-language",
+    "displayName": "pcsx2-patch-language",
+    "description": "",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.92.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "pcsx2-patch",
+            "aliases": ["pcsx2", "pcsx2-patch"],
+            "extensions": [".pnach"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "pcsx2-patch",
+            "scopeName": "source.pcsx2",
+            "path": "./syntaxes/pcsx2-patch.tmLanguage.json"
+        }]
+    }
+}
