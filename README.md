@@ -4,12 +4,13 @@ This extension offers syntax highlight for .patch file for PCSX2.
 
 ## Features
 
-![syntax-highlight-example](https://github.com/your-repository/image/README/syntax-highlight-example.png)
+- syntax highlight for pnach file
+
+![syntax-highlight-example](https://github.com/Take-Me1010/PCSX2-patch-language/blob/main/image/README/syntax-highlight-example.png?raw=true)
+color theme: [Dracula soft](https://draculatheme.com/visual-studio-code)
 
 
 ## Release Notes
-
-Users appreciate release notes as you update your extension.
 
 ### 0.0.1
 
