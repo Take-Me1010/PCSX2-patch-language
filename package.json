@@ -3,6 +3,10 @@
     "displayName": "pcsx2-patch-language",
     "description": "",
     "version": "0.0.1",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Take-Me1010/PCSX2-patch-language"
+    },
     "engines": {
         "vscode": "^1.92.0"
     },
