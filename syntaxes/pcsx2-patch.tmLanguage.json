@@ -50,6 +50,12 @@
 				},
 				{
 					"include": "#patch_statement"
+				},
+				{
+					"include": "#comment_statement"
+				},
+				{
+					"include": "#other_statement"
 				}
 			]
 		},
@@ -68,12 +74,49 @@
 			}
 		},
 		"patch_statement": {
+			"match": "^(patch)(=)(.*?)$",
+			"captures": {
+				"1": {
+					"name": "support.type.property-name"
+				},
+				"2": {
+					"name": "punctuation.separator.key-value"
+				},
+				"3": {
+					"patterns": [
+						{
+							"include": "#patch_value"
+						}
+					]
+				}
+			}
+		},
+		"comment_statement": {
+			"match": "^(comment)(=)(.*?)$",
+			"captures": {
+				"1": {
+					"name": "support.type.property-name"
+				},
+				"2": {
+					"name": "punctuation.separator.key-value"
+				},
+				"3": {
+					"name": "comment.pcsx2-patch"
+				}
+			}
+		},
+		"other_statement": {
 			"match": "^(.*?)(=)(.*?)$",
 			"captures": {
 				"1": {
 					"patterns": [
 						{
-							"include": "#patch_keys"
+							"match": "description|author|gsaspectratio|gsinterlacemode",
+							"name": "support.type.property-name"
+						},
+						{
+							"match": "^[description|author|gsaspectratio|gsinterlacemode]",
+							"name": "invalid"
 						}
 					]
 				},
@@ -85,9 +128,17 @@
 				}
 			}
 		},
-		"patch_keys": {
-			"match": "comment|description|patch|author|gsaspectratio|gsinterlacemode",
-			"name": "support.type.property-name"
+		"patch_value": {
+			"patterns": [
+				{
+					"match": ",",
+					"name": "punctuation.separator.key-value"
+				},
+				{
+					"match": "[^,]+",
+					"name": "string.unquoted"
+				}
+			]
 		},
 		"comment": {
 			"patterns": [
