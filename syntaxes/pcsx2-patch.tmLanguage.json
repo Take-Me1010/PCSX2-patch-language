@@ -3,47 +3,79 @@
 	"name": "pcsx2",
 	"patterns": [
 		{
-			"include": "#game_statement"
+			"include": "#header"
 		},
 		{
-			"include": "#header_context"
-		},
-
-		{
-			"include": "#patch_context"
+			"include": "#statement"
 		},
 		{
 			"include": "#comment"
 		}
 	],
 	"repository": {
+		"header": {
+			"match": "^(\\[)([^\\]]+)(\\])$",
+			"captures": {
+				"1": {
+					"name": "punctuation.section.scope.begin"
+				},
+				"2": {
+					"patterns": [
+						{
+							"include": "#reserved_headers"
+						},
+						{
+							"match": "[^\\\\]+",
+							"name": "entity.name.function"
+						},
+						{
+							"match": "\\\\",
+							"name": "punctuation.separator.key-value"
+						}
+					]
+				},
+				"3": {
+					"name": "punctuation.section.scope.end"
+				}
+			}
+		},
+		"reserved_headers": {
+			"match": "No-Interlacing|Widescreen 16:9",
+			"name": "variable.other.predefined"
+		},
+		"statement": {
+			"patterns": [
+				{
+					"include": "#game_statement"
+				},
+				{
+					"include": "#patch_statement"
+				}
+			]
+		},
 		"game_statement": {
 			"match": "^(gametitle)(=)(.*?)$",
 			"captures": {
 				"1": {
-					"name": "keyword.other.definition"
+					"name": "variable.other.predefined"
 				},
 				"2": {
 					"name": "punctuation.separator.key-value"
 				},
 				"3": {
-					"name": "constant"
+					"name": "support.game-title"
 				}
 			}
 		},
-		"comment": {
-			"patterns": [
-				{
-					"name": "comment.line.double-slash.pcsx2-patch",
-					"match": "\\/\\/.*$"
-				}
-			]
-		},
-		"patch_context": {
-			"match": "^(author|comment|description|patch|gsaspectratio|gsinterlacemode)(=)(.*?)$",
+		"patch_statement": {
+			"match": "^(.*?)(=)(.*?)$",
 			"captures": {
 				"1": {
-					"name": "support.type.property-name"
+					"patterns": [
+						{
+							"include": "#patch_keys"
+						}
+					]
 				},
 				"2": {
 					"name": "punctuation.separator.key-value"
@@ -53,32 +85,17 @@
 				}
 			}
 		},
-		"header_context": {
-			"match": "^(\\[)([^\\]]+)(\\])$",
-			"captures": {
-				"1": {
-					"name": "punctuation.section.scope.begin"
-				},
-				"2": {
-					"patterns": [
-						{
-							"match": "(No-Interlacing|Widescreen 16:9)",
-							"name": "support.function.magic"
-						},
-						{
-							"match": "([^\\\\]+)",
-							"name": "entity.name.function"
-						},
-						{
-							"match": "(\\\\)",
-							"name": "punctuation.separator.key-value"
-						}
-					]
-				},
-				"3": {
-					"name": "punctuation.section.scope.end"
+		"patch_keys": {
+			"match": "comment|description|patch|author|gsaspectratio|gsinterlacemode",
+			"name": "support.type.property-name"
+		},
+		"comment": {
+			"patterns": [
+				{
+					"name": "comment.pcsx2-patch",
+					"match": "\\/\\/.*$"
 				}
-			}
+			]
 		}
 	},
 	"scopeName": "source.pcsx2"
